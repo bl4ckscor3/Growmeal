@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sbmgrowmeal",
+  "name": "[SBM] Growmeal",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["bl4ckscor3"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
