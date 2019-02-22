@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.12.x-v1.0"
-group = "bl4ckscor3.mod.sbmgrowmeal" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "com.builtbroken.sbmgrowmeal" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "sbmgrowmeal"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
