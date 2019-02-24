@@ -1,5 +1,6 @@
 package com.builtbroken.sbmgrowmeal;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
@@ -50,11 +51,11 @@ public class Growmeal
 
                         for(int i = 0; i < 1000; i++) //try a thousand times to not have an infinite loop with a growable that can grow infinite times
                         {
-                            IGrowable growable = (IGrowable)world.getBlockState(pos).getBlock();
+                            Block growable = world.getBlockState(pos).getBlock();
 
-                            if(growable.canGrow(world, pos, world.getBlockState(pos), world.isRemote))
+                            if(growable instanceof IGrowable && ((IGrowable)growable).canGrow(world, pos, world.getBlockState(pos), world.isRemote))
                             {
-                                growable.grow(world, world.rand, pos, world.getBlockState(pos));
+                                ((IGrowable)growable).grow(world, world.rand, pos, world.getBlockState(pos));
                                 hasGrown = true;
                             }
                             else break; //no need to try even more when the growable can't grow
