@@ -1,34 +1,31 @@
 package com.builtbroken.sbmgrowmeal;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.registries.ObjectHolder;
 
-@Mod(modid=Growmeal.MODID, name=Growmeal.NAME, version=Growmeal.VERSION, acceptedMinecraftVersions=Growmeal.MC_VERSION)
-@EventBusSubscriber
+@Mod(Growmeal.MODID)
+@EventBusSubscriber(bus=Bus.MOD)
 public class Growmeal
 {
     public static final String MODID = "sbmgrowmeal";
     public static final String NAME = "[SBM] Growmeal";
-    public static final String VERSION = ""; //TODO
-    public static final String MC_VERSION = "1.12";
     public static final String PREFIX = MODID + ":";
 
     @ObjectHolder(Growmeal.PREFIX + "growmeal")
@@ -37,10 +34,22 @@ public class Growmeal
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
-        event.getRegistry().register(new Item() {
+        event.getRegistry().register(new Item(new Item.Properties().group(ItemGroup.MISC)) {
             @Override
-            public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
+            public EnumActionResult onItemUse(ItemUseContext ctx)
             {
+                World world = ctx.getWorld();
+                BlockPos pos = ctx.getPos();
+                EntityPlayer player = ctx.getPlayer();
+                EnumHand hand = null;
+                ItemStack stack = ctx.getItem();
+
+                //find out which hand the item is held in to swing the arm later on
+                if(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() == GROWMEAL)
+                    hand = EnumHand.MAIN_HAND;
+                else if(player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND).getItem() == GROWMEAL)
+                    hand = EnumHand.OFF_HAND;
+
                 //world.getBlockState(pos) is never saved as the state will not update otherwhise after applying the meal
                 if(world.getBlockState(pos).getBlock() instanceof IGrowable)
                 {
@@ -50,11 +59,11 @@ public class Growmeal
 
                         for(int i = 0; i < 1000; i++) //try a thousand times to not have an infinite loop with a growable that can grow infinite times
                         {
-                            IGrowable growable = (IGrowable)world.getBlockState(pos).getBlock();
+                            Block growable = world.getBlockState(pos).getBlock();
 
-                            if(growable.canGrow(world, pos, world.getBlockState(pos), world.isRemote))
+                            if(growable instanceof IGrowable && ((IGrowable)growable).canGrow(world, pos, world.getBlockState(pos), world.isRemote))
                             {
-                                growable.grow(world, world.rand, pos, world.getBlockState(pos));
+                                ((IGrowable)growable).grow(world, world.rand, pos, world.getBlockState(pos));
                                 hasGrown = true;
                             }
                             else break; //no need to try even more when the growable can't grow
@@ -65,7 +74,7 @@ public class Growmeal
                             world.playEvent(2005, pos, 0); //particles
 
                             if(!player.isCreative())
-                                player.getHeldItem(hand).shrink(1);
+                                stack.shrink(1);
 
                             return EnumActionResult.SUCCESS;
                         }
@@ -76,13 +85,6 @@ public class Growmeal
 
                 return EnumActionResult.PASS;
             }
-        }.setRegistryName(new ResourceLocation(Growmeal.MODID, "growmeal")).setCreativeTab(CreativeTabs.MISC).setTranslationKey(Growmeal.PREFIX + "growmeal"));
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event)
-    {
-        ModelLoader.setCustomModelResourceLocation(GROWMEAL, 0, new ModelResourceLocation(new ResourceLocation(Growmeal.MODID, "growmeal"), "inventory"));
+        }.setRegistryName(new ResourceLocation(Growmeal.MODID, "growmeal")));
     }
 }
