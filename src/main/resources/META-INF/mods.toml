@@ -6,7 +6,7 @@ authors="bl4ckscor3"
 
 [[mods]] #mandatory
 modId="sbmgrowmeal" #mandatory
-version="1.0.1" #mandatory
+version="1.0.2" #mandatory
 displayName="[SBM] Growmeal" #mandatory
 description='''Instantly grow plants''' #mandatory
 
