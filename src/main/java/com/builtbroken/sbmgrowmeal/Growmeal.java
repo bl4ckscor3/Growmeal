@@ -2,14 +2,14 @@ package com.builtbroken.sbmgrowmeal;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -36,19 +36,19 @@ public class Growmeal
     {
         event.getRegistry().register(new Item(new Item.Properties().group(ItemGroup.MISC)) {
             @Override
-            public EnumActionResult onItemUse(ItemUseContext ctx)
+            public ActionResultType onItemUse(ItemUseContext ctx)
             {
                 World world = ctx.getWorld();
                 BlockPos pos = ctx.getPos();
-                EntityPlayer player = ctx.getPlayer();
-                EnumHand hand = null;
+                PlayerEntity player = ctx.getPlayer();
+                Hand hand = null;
                 ItemStack stack = ctx.getItem();
 
                 //find out which hand the item is held in to swing the arm later on
-                if(player.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).getItem() == GROWMEAL)
-                    hand = EnumHand.MAIN_HAND;
-                else if(player.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND).getItem() == GROWMEAL)
-                    hand = EnumHand.OFF_HAND;
+                if(player.getItemStackFromSlot(EquipmentSlotType.MAINHAND).getItem() == GROWMEAL)
+                    hand = Hand.MAIN_HAND;
+                else if(player.getItemStackFromSlot(EquipmentSlotType.OFFHAND).getItem() == GROWMEAL)
+                    hand = Hand.OFF_HAND;
 
                 //world.getBlockState(pos) is never saved as the state will not update otherwhise after applying the meal
                 if(world.getBlockState(pos).getBlock() instanceof IGrowable)
@@ -76,14 +76,14 @@ public class Growmeal
                             if(!player.isCreative())
                                 stack.shrink(1);
 
-                            return EnumActionResult.SUCCESS;
+                            return ActionResultType.SUCCESS;
                         }
                     }
 
                     player.swingArm(hand); //swings according to this method's return value
                 }
 
-                return EnumActionResult.PASS;
+                return ActionResultType.PASS;
             }
         }.setRegistryName(new ResourceLocation(Growmeal.MODID, "growmeal")));
     }
