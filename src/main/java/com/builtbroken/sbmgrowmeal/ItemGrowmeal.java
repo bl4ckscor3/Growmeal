@@ -10,6 +10,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 /**
  * Created by Dark(DarkGuardsman, Robert) on 6/15/2019.
@@ -29,7 +30,7 @@ public class ItemGrowmeal extends Item
         final World world = ctx.getWorld();
         final BlockPos pos = ctx.getPos();
         final PlayerEntity player = ctx.getPlayer();
-        final Hand hand = ctx.func_221531_n();
+        final Hand hand = ctx.getHand();
         final ItemStack stack = ctx.getItem();
 
         //world.getBlockState(pos) is never saved as the state will not update otherwhise after applying the meal
@@ -74,9 +75,9 @@ public class ItemGrowmeal extends Item
     protected void doGrow(World world, BlockPos pos)
     {
         BlockState blockState = world.getBlockState(pos);
-        if (blockState.getBlock() instanceof IGrowable)
+        if (!world.isRemote && blockState.getBlock() instanceof IGrowable)
         {
-            ((IGrowable) blockState.getBlock()).grow(world, world.rand, pos, blockState);
+            ((IGrowable) blockState.getBlock()).func_225535_a_((ServerWorld)world, world.rand, pos, blockState);
         }
     }
 

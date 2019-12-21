@@ -18,16 +18,15 @@ archivesBaseName = 'SBM-Growmeal'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190626-1.14.3'
+    mappings channel: 'snapshot', version: '20191217-1.14.3'
 	
     runs {
         client {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                sbmgrowmeal {
                     source sourceSets.main
                 }
             }
@@ -35,11 +34,10 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                sbmgrowmeal {
                     source sourceSets.main
                 }
             }
@@ -49,7 +47,7 @@ minecraft {
 
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.3-27.0.12'
+    minecraft 'net.minecraftforge:forge:1.15.1-30.0.14'
 }
 
 jar {
