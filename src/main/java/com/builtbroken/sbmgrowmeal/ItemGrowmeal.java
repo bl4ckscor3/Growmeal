@@ -77,7 +77,7 @@ public class ItemGrowmeal extends Item
         BlockState blockState = world.getBlockState(pos);
         if (!world.isRemote && blockState.getBlock() instanceof IGrowable)
         {
-            ((IGrowable) blockState.getBlock()).func_225535_a_((ServerWorld)world, world.rand, pos, blockState);
+            ((IGrowable) blockState.getBlock()).grow((ServerWorld)world, world.rand, pos, blockState);
         }
     }
 
