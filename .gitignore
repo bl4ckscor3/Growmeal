@@ -14,5 +14,5 @@ output/
 *.ipr
 *.iws
 *.idea/
-
+*.launch
 changelog\.html
