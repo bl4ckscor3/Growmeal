@@ -1,8 +1,8 @@
 package com.builtbroken.sbmgrowmeal;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,7 +26,7 @@ public class Growmeal
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
-        event.getRegistry().register(new ItemGrowmeal(new Item.Properties().tab(ItemGroup.TAB_MISC))
+        event.getRegistry().register(new ItemGrowmeal(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
                 .setRegistryName(new ResourceLocation(Growmeal.MODID, ITEM_NAME)));
     }
 
