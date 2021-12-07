@@ -12,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import net.minecraft.item.Item.Properties;
+
 /**
  * Created by Dark(DarkGuardsman, Robert) on 6/15/2019.
  */
@@ -25,22 +27,22 @@ public class ItemGrowmeal extends Item
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext ctx)
+    public ActionResultType useOn(ItemUseContext ctx)
     {
-        final World world = ctx.getWorld();
-        final BlockPos pos = ctx.getPos();
+        final World world = ctx.getLevel();
+        final BlockPos pos = ctx.getClickedPos();
         final PlayerEntity player = ctx.getPlayer();
         final Hand hand = ctx.getHand();
-        final ItemStack stack = ctx.getItem();
+        final ItemStack stack = ctx.getItemInHand();
 
         //world.getBlockState(pos) is never saved as the state will not update otherwhise after applying the meal
         if (isValidToApply(world, pos))
         {
-            if (!world.isRemote)
+            if (!world.isClientSide)
             {
                 if (cycleGrowth(world, pos)) //make sure that the growable has grown before removing an item from the player
                 {
-                    world.playEvent(2005, pos, 0); //particles
+                    world.levelEvent(2005, pos, 0); //particles
 
                     if (!player.isCreative())
                     {
@@ -50,7 +52,7 @@ public class ItemGrowmeal extends Item
                     return ActionResultType.SUCCESS;
                 }
             }
-            player.swingArm(hand); //swings according to this method's return value
+            player.swing(hand); //swings according to this method's return value
         }
         return ActionResultType.PASS;
     }
@@ -75,9 +77,9 @@ public class ItemGrowmeal extends Item
     protected void doGrow(World world, BlockPos pos)
     {
         BlockState blockState = world.getBlockState(pos);
-        if (!world.isRemote && blockState.getBlock() instanceof IGrowable)
+        if (!world.isClientSide && blockState.getBlock() instanceof IGrowable)
         {
-            ((IGrowable) blockState.getBlock()).grow((ServerWorld)world, world.rand, pos, blockState);
+            ((IGrowable) blockState.getBlock()).performBonemeal((ServerWorld)world, world.random, pos, blockState);
         }
     }
 
@@ -86,7 +88,7 @@ public class ItemGrowmeal extends Item
         BlockState blockState = world.getBlockState(pos);
         if (blockState.getBlock() instanceof IGrowable)
         {
-            return ((IGrowable) blockState.getBlock()).canGrow(world, pos, blockState, world.isRemote);
+            return ((IGrowable) blockState.getBlock()).isValidBonemealTarget(world, pos, blockState, world.isClientSide);
         }
         return false;
     }

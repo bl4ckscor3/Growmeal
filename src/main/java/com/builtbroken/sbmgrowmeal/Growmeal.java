@@ -26,7 +26,7 @@ public class Growmeal
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event)
     {
-        event.getRegistry().register(new ItemGrowmeal(new Item.Properties().group(ItemGroup.MISC))
+        event.getRegistry().register(new ItemGrowmeal(new Item.Properties().tab(ItemGroup.TAB_MISC))
                 .setRegistryName(new ResourceLocation(Growmeal.MODID, ITEM_NAME)));
     }
 
