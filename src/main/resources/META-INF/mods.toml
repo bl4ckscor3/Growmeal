@@ -1,26 +1,26 @@
-modLoader="javafml" #mandatory
-loaderVersion="[33,)" #mandatory
-license="MIT License https://github.com/BuiltBrokenModding/SBM-Growmeal/blob/1.16/LICENSE"
+modLoader="javafml"
+loaderVersion="[37,)"
+license="MIT License https://github.com/BuiltBrokenModding/SBM-Growmeal/blob/1.17/LICENSE"
 issueTrackerURL="https://github.com/BuiltBrokenModding/SBM-Growmeal/issues"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/sbm-growmeal"
-authors="bl4ckscor3"
 
-[[mods]] #mandatory
-modId="sbmgrowmeal" #mandatory
-version="1.0.2" #mandatory
-displayName="Growmeal" #mandatory
-description='''Instantly grow plants''' #mandatory
+[[mods]]
+	modId="sbmgrowmeal"
+	version="${file.jarVersion}"
+	displayName="Growmeal"
+	description='''Instantly grow plants'''
+	displayURL="https://www.curseforge.com/minecraft/mc-mods/sbm-growmeal"
+	authors="bl4ckscor3"
 
 [[dependencies.sbmgrowmeal]]
     modId="forge"
     mandatory=true
-    versionRange="[33,)"
+    versionRange="[37,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.sbmgrowmeal]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16,1.17)"
+    versionRange="[1.17,1.18)"
     ordering="NONE"
     side="BOTH"
