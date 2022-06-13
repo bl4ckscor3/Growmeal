@@ -15,11 +15,11 @@ import net.minecraft.world.level.block.state.BlockState;
 /**
  * Created by Dark(DarkGuardsman, Robert) on 6/15/2019.
  */
-public class ItemGrowmeal extends Item
+public class GrowmealItem extends Item
 {
 	public static int tries = 1000;
 
-	public ItemGrowmeal(Properties properties)
+	public GrowmealItem(Properties properties)
 	{
 		super(properties);
 	}

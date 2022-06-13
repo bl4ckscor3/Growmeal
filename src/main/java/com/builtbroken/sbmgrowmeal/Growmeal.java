@@ -1,31 +1,27 @@
 package com.builtbroken.sbmgrowmeal;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 @Mod(Growmeal.MODID)
 @EventBusSubscriber(bus = Bus.MOD)
 public class Growmeal
 {
 	public static final String MODID = "sbmgrowmeal";
-	public static final String PREFIX = MODID + ":";
-
 	public static final String ITEM_NAME = "growmeal";
 
-	@ObjectHolder(Growmeal.PREFIX + ITEM_NAME)
-	public static final Item GROWMEAL = null;
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+	public static final RegistryObject<GrowmealItem> XP_BLOCK_ITEMS = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-	@SubscribeEvent
-	public static void registerItems(RegistryEvent.Register<Item> event)
+	public Growmeal()
 	{
-		event.getRegistry().register(new ItemGrowmeal(new Item.Properties().tab(CreativeModeTab.TAB_MISC))
-				.setRegistryName(new ResourceLocation(Growmeal.MODID, ITEM_NAME)));
+		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 }
