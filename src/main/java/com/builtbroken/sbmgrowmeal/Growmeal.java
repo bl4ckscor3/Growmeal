@@ -12,16 +12,13 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod(Growmeal.MODID)
 @EventBusSubscriber(bus = Bus.MOD)
-public class Growmeal
-{
+public class Growmeal {
 	public static final String MODID = "sbmgrowmeal";
 	public static final String ITEM_NAME = "growmeal";
-
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 	public static final RegistryObject<GrowmealItem> XP_BLOCK_ITEMS = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
 
-	public Growmeal()
-	{
+	public Growmeal() {
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
 	}
 }
