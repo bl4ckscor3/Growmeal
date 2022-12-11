@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 
 version = '1.0.2'
 group = 'sbmgrowmeal'
-archivesBaseName = 'SBM-Growmeal-1.19.3'
+archivesBaseName = 'growmeal-1.19.3'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
