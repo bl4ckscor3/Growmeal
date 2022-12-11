@@ -1,7 +1,12 @@
 package com.builtbroken.sbmgrowmeal;
 
-import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTab.TabVisibility;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -16,9 +21,15 @@ public class Growmeal {
 	public static final String MODID = "sbmgrowmeal";
 	public static final String ITEM_NAME = "growmeal";
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-	public static final RegistryObject<GrowmealItem> XP_BLOCK_ITEMS = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+	public static final RegistryObject<GrowmealItem> GROWMEAL = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties()));
 
 	public Growmeal() {
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+	}
+
+	@SubscribeEvent
+	public static void onCreativeModeTabBuildContents(CreativeModeTabEvent.BuildContents event) {
+		if (event.getTab() == CreativeModeTabs.TOOLS_AND_UTILITIES || event.getTab() == CreativeModeTabs.INGREDIENTS)
+			event.getEntries().putAfter(new ItemStack(Items.BONE_MEAL), new ItemStack(GROWMEAL.get()), TabVisibility.PARENT_AND_SEARCH_TABS);
 	}
 }
