@@ -72,7 +72,7 @@ public class GrowmealItem extends Item {
 		BlockState blockState = level.getBlockState(pos);
 
 		if (blockState.getBlock() instanceof BonemealableBlock bonemealableBlock)
-			return bonemealableBlock.isValidBonemealTarget(level, pos, blockState, level.isClientSide);
+			return bonemealableBlock.isValidBonemealTarget(level, pos, blockState);
 
 		return false;
 	}
