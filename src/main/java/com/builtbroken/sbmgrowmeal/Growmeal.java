@@ -11,17 +11,16 @@ import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.ForgeRegistries;
-import net.neoforged.neoforge.registries.RegistryObject;
 
 @Mod(Growmeal.MODID)
 @EventBusSubscriber(bus = Bus.MOD)
 public class Growmeal {
 	public static final String MODID = "sbmgrowmeal";
 	public static final String ITEM_NAME = "growmeal";
-	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-	public static final RegistryObject<GrowmealItem> GROWMEAL = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties()));
+	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
+	public static final DeferredItem<GrowmealItem> GROWMEAL = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties()));
 
 	public Growmeal() {
 		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
