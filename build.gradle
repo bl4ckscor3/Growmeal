@@ -2,19 +2,26 @@ plugins {
     id 'java-library'
     id 'eclipse'
     id 'idea'
-    id 'net.neoforged.gradle.userdev' version '[7.0,7.1)'
-//	id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.gradle.userdev' version '7.0.105'
 }
 
 version = '1.0.3'
 group = 'sbmgrowmeal'
 
 base {
-	archivesName = 'growmeal-1.20.2'
+	archivesName = 'growmeal-1.20.6'
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+processResources {
+	exclude ".cache"
+}
+
+sourceSets.main.resources {
+	srcDir 'src/generated/resources' //include generated files
+}
 
 runs {
     configureEach {
@@ -30,13 +37,20 @@ runs {
         workingDirectory project.file('run/server')
         programArgument '-nogui'
     }
+
+    data {
+		workingDirectory project.file('run/data')
+		programArguments.addAll '--mod', 'sbmgrowmeal', '--all', '--output', file('src/generated/resources/').getAbsolutePath()
+	}
 }
 
 dependencies {
-    implementation 'net.neoforged:neoforge:20.2.59-beta'
+    implementation 'net.neoforged:neoforge:20.6.17-beta'
 }
 
 tasks.named('jar', Jar).configure {
+	exclude('com/builtbroken/sbmgrowmeal/datagen/**') //exclude files from the built jar that are only used to generate the assets & data
+
     manifest {
         attributes(["Specification-Title": "SBM-Growmeal",
                     "Specification-Vendor": "BuiltBrokenModding",
@@ -49,4 +63,5 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+	options.release = 21
 }

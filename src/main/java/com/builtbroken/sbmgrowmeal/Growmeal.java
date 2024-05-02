@@ -5,11 +5,11 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -22,8 +22,8 @@ public class Growmeal {
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 	public static final DeferredItem<GrowmealItem> GROWMEAL = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties()));
 
-	public Growmeal() {
-		ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+	public Growmeal(IEventBus modEventBus) {
+		ITEMS.register(modEventBus);
 	}
 
 	@SubscribeEvent
