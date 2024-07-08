@@ -29,6 +29,6 @@ public class Growmeal {
 	@SubscribeEvent
 	public static void onCreativeModeTabBuildContents(BuildCreativeModeTabContentsEvent event) {
 		if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES || event.getTabKey() == CreativeModeTabs.INGREDIENTS)
-			event.getEntries().putAfter(new ItemStack(Items.BONE_MEAL), new ItemStack(GROWMEAL.get()), TabVisibility.PARENT_AND_SEARCH_TABS);
+			event.insertAfter(new ItemStack(Items.BONE_MEAL), new ItemStack(GROWMEAL.get()), TabVisibility.PARENT_AND_SEARCH_TABS);
 	}
 }
