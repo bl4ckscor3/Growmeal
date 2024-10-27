@@ -35,7 +35,7 @@ public class GrowmealItem extends Item {
 				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, clickedPos, 15);
 			}
 
-			return InteractionResult.SUCCESS;
+			return InteractionResult.SUCCESS_SERVER;
 		}
 		else {
 			BlockState clickedState = level.getBlockState(clickedPos);
@@ -48,7 +48,7 @@ public class GrowmealItem extends Item {
 					level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, relativePos, 15);
 				}
 
-				return InteractionResult.SUCCESS;
+				return InteractionResult.SUCCESS_SERVER;
 			}
 			else {
 				return InteractionResult.PASS;
