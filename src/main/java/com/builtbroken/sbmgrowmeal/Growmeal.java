@@ -2,7 +2,6 @@ package com.builtbroken.sbmgrowmeal;
 
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
@@ -20,7 +19,7 @@ public class Growmeal {
 	public static final String MODID = "sbmgrowmeal";
 	public static final String ITEM_NAME = "growmeal";
 	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-	public static final DeferredItem<GrowmealItem> GROWMEAL = ITEMS.register(ITEM_NAME, () -> new GrowmealItem(new Item.Properties()));
+	public static final DeferredItem<GrowmealItem> GROWMEAL = ITEMS.registerItem(ITEM_NAME, GrowmealItem::new);
 
 	public Growmeal(IEventBus modEventBus) {
 		ITEMS.register(modEventBus);
