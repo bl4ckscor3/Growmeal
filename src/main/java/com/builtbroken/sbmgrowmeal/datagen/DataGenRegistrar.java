@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.builtbroken.sbmgrowmeal.Growmeal;
 
 import net.minecraft.DetectedVersion;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
@@ -21,13 +20,10 @@ public class DataGenRegistrar {
 	private DataGenRegistrar() {}
 
 	@SubscribeEvent
-	public static void onGatherData(GatherDataEvent event) {
-		DataGenerator generator = event.getGenerator();
-		var output = generator.getPackOutput();
-
-		generator.addProvider(event.includeServer(), new RecipeGenerator.Runner(output, event.getLookupProvider()));
+	public static void onGatherData(GatherDataEvent.Client event) {
+		event.createProvider(RecipeGenerator.Runner::new);
 		//@formatter:off
-		generator.addProvider(true, new PackMetadataGenerator(output)
+		event.createProvider(output -> new PackMetadataGenerator(output)
                 .add(PackMetadataSection.TYPE, new PackMetadataSection(Component.literal("SBM-Growmeal resources & data"),
                         DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
                         Optional.of(new InclusiveRange<>(0, Integer.MAX_VALUE)))));
