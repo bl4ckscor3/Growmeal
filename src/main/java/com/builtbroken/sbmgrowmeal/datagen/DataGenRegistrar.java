@@ -12,10 +12,9 @@ import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.util.InclusiveRange;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-@EventBusSubscriber(modid = Growmeal.MODID, bus = Bus.MOD)
+@EventBusSubscriber(modid = Growmeal.MODID)
 public class DataGenRegistrar {
 	private DataGenRegistrar() {}
 
@@ -25,7 +24,7 @@ public class DataGenRegistrar {
 		//@formatter:off
 		event.createProvider(output -> new PackMetadataGenerator(output)
                 .add(PackMetadataSection.TYPE, new PackMetadataSection(Component.literal("SBM-Growmeal resources & data"),
-                        DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES),
+                        DetectedVersion.BUILT_IN.packVersion(PackType.CLIENT_RESOURCES),
                         Optional.of(new InclusiveRange<>(0, Integer.MAX_VALUE)))));
 		//@formatter:on
 	}

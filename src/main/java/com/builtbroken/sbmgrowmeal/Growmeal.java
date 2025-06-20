@@ -7,14 +7,13 @@ import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 @Mod(Growmeal.MODID)
-@EventBusSubscriber(bus = Bus.MOD)
+@EventBusSubscriber
 public class Growmeal {
 	public static final String MODID = "sbmgrowmeal";
 	public static final String ITEM_NAME = "growmeal";
