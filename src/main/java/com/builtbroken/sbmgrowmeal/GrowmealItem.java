@@ -29,7 +29,7 @@ public class GrowmealItem extends Item {
 		BlockPos relativePos = clickedPos.relative(ctx.getClickedFace());
 
 		if (cycleGrowth(level, clickedPos, ctx.getPlayer(), BoneMealItem::applyBonemeal)) {
-			if (!level.isClientSide) {
+			if (!level.isClientSide()) {
 				ctx.getItemInHand().shrink(1);
 				ctx.getPlayer().gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 				level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, clickedPos, 15);
@@ -42,7 +42,7 @@ public class GrowmealItem extends Item {
 			boolean isFaceSturdy = clickedState.isFaceSturdy(level, clickedPos, ctx.getClickedFace());
 
 			if (isFaceSturdy && cycleGrowth(level, relativePos, ctx.getClickedFace(), BoneMealItem::growWaterPlant)) {
-				if (!level.isClientSide) {
+				if (!level.isClientSide()) {
 					ctx.getItemInHand().shrink(1);
 					ctx.getPlayer().gameEvent(GameEvent.ITEM_INTERACT_FINISH);
 					level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, relativePos, 15);
