@@ -1,6 +1,4 @@
-modLoader="javafml"
-loaderVersion="[1,)"
-license="MIT License https://github.com/bl4ckscor3/Growmeal/blob/1.21.10/LICENSE"
+license="MIT License https://github.com/bl4ckscor3/Growmeal/blob/26.1/LICENSE"
 issueTrackerURL="https://github.com/bl4ckscor3/Growmeal/issues"
 
 [[mods]]
@@ -14,13 +12,13 @@ issueTrackerURL="https://github.com/bl4ckscor3/Growmeal/issues"
 [[dependencies.sbmgrowmeal]]
     modId="neoforge"
     type="required"
-    versionRange="[21.10,)"
+    versionRange="[26,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.sbmgrowmeal]]
     modId="minecraft"
     type="required"
-    versionRange="[1.21.10,1.22)"
+    versionRange="[26,)"
     ordering="NONE"
     side="BOTH"
