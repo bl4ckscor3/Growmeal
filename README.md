@@ -1,17 +1,3 @@
-SBM-Growmeal
-
-Changelog
----
-
-1.0.2
-
-- Fix recipe collision with bone block
-
-1.0.1
-
-- Add french translation (Lykrast)
-- Fix issue when growing trees and similar plants
-
-1.0.0
-
-- Initial release
+# Downloads
+__**CurseForge:**__ https://curseforge.com/minecraft/mc-mods/get-it-together-drops  
+__**Modrinth:**__ https://modrinth.com/mod/get-it-together-drops
