@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "sbmgrowmeal:growmeal"
+        "recipes": "sbmgrowmeal:growmeal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
